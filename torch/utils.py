@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 
 # Plot the function (curve + optional scatter)
 def plot_fun(x=None, y=None, x_scatter=None, y_scatter=None):
+    
     fig = go.Figure()
 
     # Plot continuous curve
@@ -47,7 +48,6 @@ def plot_fun(x=None, y=None, x_scatter=None, y_scatter=None):
 
 def train_MLP(model, n_epochs, train_dataloader, loss_fn):
     # Define the loss function and optimizer
-    
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
     nTrainSteps = n_epochs
 
@@ -56,11 +56,15 @@ def train_MLP(model, n_epochs, train_dataloader, loss_fn):
 
         # Set current loss value
         current_loss = 0.0
+    
 
         # Iterate over the DataLoader for training data
         for i, data in enumerate(train_dataloader, 0):
             # Get inputs
             inputs, targets = data
+
+            if targets is None:
+                print("NONE?")
             
             # Zero the gradients
             optimizer.zero_grad()
